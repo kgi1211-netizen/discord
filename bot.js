@@ -6,7 +6,7 @@ const client = new Client({
 });
 
 /* ===== 여기만 수정 ===== */
-const CHANNEL_ID = "1464170323091001415";
+const CHANNEL_ID = "여기에_채널ID";
 /* ====================== */
 
 const TARGET_URL =
@@ -16,7 +16,17 @@ let lastContent = null;
 
 async function checkSite() {
   try {
-    const res = await fetch(TARGET_URL);
+    const res = await fetch(TARGET_URL, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
+      }
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP 상태 코드 ${res.status}`);
+    }
+
     const text = await res.text();
 
     if (lastContent && lastContent !== text) {
@@ -34,7 +44,6 @@ async function checkSite() {
 client.once("ready", async () => {
   console.log("봇 온라인");
 
-  // 🔹 테스트 메시지 (한 번만 전송)
   try {
     const channel = await client.channels.fetch(CHANNEL_ID);
     await channel.send("봇 테스트 메시지: 정상 동작 중");
@@ -47,4 +56,3 @@ client.once("ready", async () => {
 });
 
 client.login(process.env.TOKEN);
-
