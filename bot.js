@@ -1,28 +1,11 @@
-import { chromium } from 'playwright';
-import fetch from 'node-fetch';
+const { Client, GatewayIntentBits } = require("discord.js");
 
-const URL = process.env.TARGET_URL;
-const WEBHOOK = process.env.WEBHOOK_URL;
+const client = new Client({
+  intents: [GatewayIntentBits.Guilds]
+});
 
-(async () => {
-  const browser = await chromium.launch();
-  const page = await browser.newPage();
+client.once("ready", () => {
+  console.log("봇이 온라인 상태입니다");
+});
 
-  await page.goto(URL, { waitUntil: "networkidle" });
-
-  const text = await page.evaluate(() => {
-    return document.body.innerText
-      .replace(/\n{3,}/g, "\n\n")
-      .slice(0, 1800);
-  });
-
-  await fetch(WEBHOOK, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content: `[페르노스 · 백야 자동 갱신]\n\n${text}`
-    })
-  });
-
-  await browser.close();
-})();
+client.login(process.env.TOKEN);
