@@ -21,7 +21,7 @@ async function checkSite() {
     const text = await res.text();
 
     if (lastContent && lastContent !== text) {
-      const channel = await client.channels.fetch(CHANNEL_ID);
+      const channel = await client.channels.fetch("1464170323091001415");
       await channel.send("사이트 내용이 변경되었습니다.");
     }
 
@@ -43,3 +43,4 @@ client.once("ready", () => {
 });
 
 client.login(process.env.TOKEN);
+
