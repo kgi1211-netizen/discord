@@ -1,23 +1,12 @@
 {
-  "name": "aion2-discord",
+  "name": "discord-bot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "node-fetch": "^3.3.2",
-    "playwright": "^1.58.2"
-  }
-}
-{
-  "type": "module",
+  "private": true,
+  "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1"
   }
 }
