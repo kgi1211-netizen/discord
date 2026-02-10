@@ -1,5 +1,4 @@
 const { Client, GatewayIntentBits } = require("discord.js");
-const fetch = require("node-fetch");
 const cron = require("node-cron");
 
 const client = new Client({
@@ -17,7 +16,7 @@ let lastContent = null;
 
 async function checkSite() {
   try {
-    const res = await fetch(TARGET_URL);
+    const res = await fetch(TARGET_URL); // node-fetch ❌, 내장 fetch ✅
     const text = await res.text();
 
     if (lastContent && lastContent !== text) {
@@ -28,7 +27,7 @@ async function checkSite() {
     lastContent = text;
     console.log("사이트 체크 완료");
   } catch (err) {
-    console.error("사이트 불러오기 실패:", err.message);
+    console.error("사이트 체크 실패:", err.message);
   }
 }
 
@@ -36,7 +35,6 @@ client.once("ready", () => {
   console.log("봇 온라인");
 
   checkSite();
-
   cron.schedule("*/30 * * * *", checkSite);
 });
 
