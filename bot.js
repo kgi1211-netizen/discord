@@ -1,6 +1,6 @@
-import { Client, GatewayIntentBits } from "discord.js";
-import fetch from "node-fetch";
-import cron from "node-cron";
+const { Client, GatewayIntentBits } = require("discord.js");
+const fetch = require("node-fetch");
+const cron = require("node-cron");
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds]
@@ -33,12 +33,10 @@ async function checkSite() {
 }
 
 client.once("ready", () => {
-  console.log("봇이 온라인 상태입니다");
+  console.log("봇 온라인");
 
-  // 시작할 때 1번 실행
   checkSite();
 
-  // 30분마다 실행
   cron.schedule("*/30 * * * *", checkSite);
 });
 
