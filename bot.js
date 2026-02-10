@@ -16,7 +16,7 @@ let lastContent = null;
 
 async function checkSite() {
   try {
-    const res = await fetch(TARGET_URL); // node-fetch ❌, 내장 fetch ✅
+    const res = await fetch(TARGET_URL);
     const text = await res.text();
 
     if (lastContent && lastContent !== text) {
@@ -31,11 +31,20 @@ async function checkSite() {
   }
 }
 
-client.once("ready", () => {
+client.once("ready", async () => {
   console.log("봇 온라인");
+
+  // 🔹 테스트 메시지 (한 번만 전송)
+  try {
+    const channel = await client.channels.fetch(CHANNEL_ID);
+    await channel.send("봇 테스트 메시지: 정상 동작 중");
+  } catch (e) {
+    console.error("테스트 메시지 전송 실패:", e.message);
+  }
 
   checkSite();
   cron.schedule("*/30 * * * *", checkSite);
 });
 
 client.login(process.env.TOKEN);
+
