@@ -6,7 +6,7 @@ const client = new Client({
 });
 
 /* ===== 여기만 수정 ===== */
-const CHANNEL_ID = "여기에_채널ID";
+const CHANNEL_ID = "1464170323091001415";
 /* ====================== */
 
 const TARGET_URL =
@@ -56,3 +56,4 @@ client.once("ready", async () => {
 });
 
 client.login(process.env.TOKEN);
+
