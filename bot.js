@@ -7,7 +7,7 @@ const client = new Client({
 });
 
 /* ===== 여기만 수정 ===== */
-const CHANNEL_ID = "여기에_채널ID";
+const CHANNEL_ID = "1464170323091001415";
 /* ====================== */
 
 const TARGET_URL =
@@ -21,7 +21,7 @@ async function checkSite() {
     const text = await res.text();
 
     if (lastContent && lastContent !== text) {
-      const channel = await client.channels.fetch("1464170323091001415");
+      const channel = await client.channels.fetch(CHANNEL_ID);
       await channel.send("사이트 내용이 변경되었습니다.");
     }
 
@@ -43,4 +43,3 @@ client.once("ready", () => {
 });
 
 client.login(process.env.TOKEN);
-
